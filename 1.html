@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>图片预览</title>
+<style>
+     #image-preview{
+     margin:0 auto;
+     width:960px;
+     height:200px;
+     background-repeat:no-repeat;
+     background-position:center center;
+     border: 1px solid #ccc;}
+</style>
+</head>
+<body>
+     <h3>图片预览</h3>
+     <div id="image-preview">
+     </div>
+     <div id="info">
+
+     </div>
+     <div>
+         <input type="file" id="file" name="file" value="" />
+     </div>
+</body>
+<script>
+'use strict'
+     var fileInput = document.getElementById("file");
+	 var info = document.getElementById("info");
+	 var preview = document.getElementById("image-preview");
+	 //添加监听事件
+	 fileInput.addEventListener("change", function(){
+	     //清除背景图片
+	     preview.style.backgroundImage="";
+		 //检查文件是否选择
+		 if(!fileInput.value){
+		     info.innerHTML='<span style="color:red;">没有选择图片"</span>';
+			 return false;
+			 }
+		//获取file引用	 
+		 var file = fileInput.files[0];
+		 console.log(file);
+		 info.innerHTML="文件:" + file.name +" <br>"+
+		                 "大小:"+ file.size + "<br>"+
+						 "修改:"+ file.lastModifiedDate;
+		//判断图片格式				 
+		 if(file.type!=="image/jpeg"&&file.type!=="image/png"&&file.type!=="image/gif")
+         {
+		 var p = document.createElement("p");
+		 p.innerHTML = '<span style="color:red;">不是有效的图片！</span>';
+         info.appendChild(p);
+         return false;}
+		 //展示图片
+         var reader = new FileReader();
+		 reader.onLoad = function(e){
+		     var data = e.target.result;//data:image/jpeg;base64
+			 preview.style.backgroundImage ='url("'+data+'")';}
+         reader.readAsDataURL(file);		 
+	 })
+</script>
+</html>
