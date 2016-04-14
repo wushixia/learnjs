@@ -1,0 +1,26 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>understand closure</title>
+<style>
+
+</style>
+</head>
+<body>
+
+<script>
+document.body.innerHTML="<div id=div1>aaa</div>"+"<div id=div2>bbb</div>"+"<div id=div3>ccc</div>";
+for(var i=1;i<4;i++){
+document.getElementById("div"+i).addEventListener("click",function(){alert(i);});
+}//点击时总显示4;
+
+document.body.innerHTML="<div id=div4>ddd</div>"+"<div id=div5>eee</div>"+"<div id=div6>fff</div>";
+for(var i=4;i<7;i++){
+!function(i){
+document.getElementById("div"+i).addEventListener("click",function(){alert(i);});
+}(i);//点击时显示4，5,6,;
+}
+</script>
+</body>
+</html>
